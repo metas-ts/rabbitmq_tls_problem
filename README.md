@@ -3,8 +3,7 @@
 Note that all this originally comes from https://groups.google.com/g/rabbitmq-users/c/qFJBrg8PrYM/m/uwkkPYFHBAAJ
 Thx to all who prepared this test case so far!
 
-
-
+# Prepare the certificates
 
 ```bash
 mkdir tls
