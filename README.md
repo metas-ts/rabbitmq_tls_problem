@@ -32,6 +32,7 @@ cp ./tls/tls-gen/basic/result/* ./volumes/certs
 Note that my hostname is `tobi-ThinkPad-E490`
 
 ```bash
+# go to the certs folder
 cd ./volumes/certs
 ```
 
@@ -180,7 +181,7 @@ SSL-Session:
 read R BLOCK
 ```
 
-<details>
+</details>
 
 
 ## TESTING with RabbitMQ & OpenSSL (<= does not work for me)
