@@ -3,9 +3,8 @@
 Note that all this originally comes from https://groups.google.com/g/rabbitmq-users/c/qFJBrg8PrYM/m/uwkkPYFHBAAJ
 Thx to all who prepared this test case so far!
 
-===
-=== Generate the certificate/key files
-===
+
+
 
 ```bash
 mkdir tls
@@ -19,19 +18,22 @@ make info
 ls -l ./result
 ```
 
-=======================================================================================
-== IMPORTANT: copy all the generated *.pem & *.p12 files to <root>/volumes/certs, then:
-=======================================================================================
+# Go back and copy the certs to their proper place
 
 ```bash
-cd <root>/volumes/certs
+cd ../../../
+cp ./tls/tls-gen/basic/result/* ./volumes/certs
 ```
 
-===
-=== TESTING with OpenSSL
-===
+
+## TESTING with OpenSSL (<= works for me)
+
 
 Note that my hostname is `tobi-ThinkPad-E490`
+
+```bash
+cd ./volumes/certs
+```
 
 Start a listener: 
 
@@ -181,34 +183,24 @@ read R BLOCK
 <details>
 
 
-===
-=== TESTING with RabbitMQ & OpenSSL
-===
+## TESTING with RabbitMQ & OpenSSL (<= does not work for me)
+
+
+
+### Run docker-compose to start RabbitMQ
 
 ```bash
-cd <root>
+# assuming that we are still in the certs folder..
+docker-compose -f ../../docker-compose.yml up --build -d
 ```
 
-===
-=== Run docker-compose to start RabbitMQ (from root of project)
-===
-
-```bash
-docker-compose -f docker-compose.yml up --build && docker-compose logs -f
-```
-
-
-===
-=== Try to connect with OpenSSL
-===
+### Try to connect with OpenSSL
 
 ```bash
 openssl s_client -connect tobi-ThinkPad-E490:5671  -cert client_certificate.pem -key client_key.pem -CAfile ca_certificate.pem -verify 8 -verify_hostname tobi-ThinkPad-E490
 ```
 
-===
-=== I get the following output (and also there's no activity in the RabbitMQ logs)
-===
+I get the following output (and also there's no activity in the RabbitMQ logs)
 
 <details>
 <summary>this is the output:</summary>
