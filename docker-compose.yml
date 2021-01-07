@@ -1,0 +1,31 @@
+version: '3.7'
+
+x-logging:
+  &log_to_file
+  options:
+    max-size: '10m'
+    max-file: '5'
+  driver: json-file
+
+services:
+
+  # RabbitMQ Queue Server
+  rabbit-mq:
+    image: rabbitmq:3.8.10-beta.1
+    volumes:
+      - ./volumes/certs:/tmp/certs
+      - ./volumes/config:/tmp/conf
+    environment:
+      - RABBITMQ_CONFIG_FILE=/tmp/conf/rabbitmq
+    init: true
+    logging: *log_to_file
+    ports:
+      - "15672:15672" # Expose UI port
+      - "5672:5672" # TCP
+      - "5671:5671" # SSL
+    networks:
+      - queue-net   
+
+
+networks:
+  queue-net:
