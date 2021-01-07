@@ -186,8 +186,6 @@ read R BLOCK
 
 ## TESTING with RabbitMQ & OpenSSL (<= does not work for me)
 
-
-
 ### Run docker-compose to start RabbitMQ
 
 ```bash
@@ -195,7 +193,9 @@ read R BLOCK
 docker-compose -f ../../docker-compose.yml up --build -d
 ```
 
-### Try to connect with OpenSSL
+Note that at this point, port 5671 is open, on both `localhost` and `tobi-ThinkPad-E490`
+
+### Try to connect to RabbitMQ with OpenSSL
 
 ```bash
 openssl s_client -connect tobi-ThinkPad-E490:5671  -cert client_certificate.pem -key client_key.pem -CAfile ca_certificate.pem -verify 8 -verify_hostname tobi-ThinkPad-E490
